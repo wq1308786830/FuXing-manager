@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-title>
+      保洁列表
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div padding>
+    <ion-segment [(ngModel)]="cleanList" (ionChange)="segmentChanged()">
+      <ion-segment-button value="waitClean">
+        未处理
+      </ion-segment-button>
+      <ion-segment-button value="dealed">
+        已处理
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="cleanList">
+
+    <ion-list *ngSwitchCase="'waitClean'" no-lines>
+      <ion-item *ngFor="let waitItem of waitCleanList" (click)="cleanDetail(waitItem)">
+        <p><span>维修时间:</span><span>{{waitItem.needcleantime}}</span></p>
+        <p><span>维修地址:</span><span>{{waitItem.house}}</span></p>
+        <p><span>维修内容:</span><span>{{waitItem.cleanmsg}}</span></p>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'dealed'" no-lines>
+      <ion-item *ngFor="let dealedItem of dealedCleanList" (click)="cleanDetail(dealedItem)">
+        <p><span>维修时间:</span><span>{{dealedItem.needcleantime}}</span></p>
+        <p><span>维修地址:</span><span>{{dealedItem.house}}</span></p>
+        <p><span>维修内容:</span><span>{{dealedItem.cleanmsg}}</span></p>
+        <p><span>维修价格:</span><span>{{dealedItem.price}}</span></p>
+        <p *ngIf="dealedItem.moneyok"><span>是否支付:</span><span>已付</span></p>
+        <p *ngIf="!dealedItem.moneyok"><span>是否支付:</span><span>未付</span><button ion-button (click)="callPay(dealedItem.id)">催缴</button></p>
+      </ion-item>
+    </ion-list>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

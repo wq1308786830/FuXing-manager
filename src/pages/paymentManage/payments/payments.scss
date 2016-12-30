@@ -1,0 +1,18 @@
+payments {
+  ion-list {
+    ion-item {
+      p {
+        margin-bottom: 1rem!important;
+        span {
+          &:last-of-type {
+            color: #2d2d2d;
+            margin-left: 1rem;
+          }
+        }
+      }
+      ion-icon {
+        color: $green-app;
+      }
+    }
+  }
+}

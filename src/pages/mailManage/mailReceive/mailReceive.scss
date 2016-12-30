@@ -1,0 +1,51 @@
+mailReceive {
+
+  ion-list {
+    ion-item {
+      ion-checkbox {
+        position: relative!important;
+        margin: 0!important;
+        display: inline-block!important;
+      }
+    }
+  }
+  ion-grid {
+    ion-row {
+      text-align: center;
+      font-size: 1.3rem;
+      &:first-of-type {
+        font-size: 1.5rem;
+        border-top: 0.55px #e4e4e4 solid;
+        border-bottom: 0.55px #e4e4e4 solid;
+        ion-col {
+          border-right: 0.55px #e4e4e4 solid;
+          &:last-of-type {
+            border-right: 0;
+            font-size: 1.3rem;
+          }
+        }
+      }
+      ion-col {
+        &:last-of-type {
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+  footer {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-top: 0.55px #e4e4e4 solid;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+    background-color: #fff;
+    .button-ios {
+      flex:1;
+      margin: 1rem;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      登录
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div class="box-container">
+
+      <ion-item>
+        <ion-input type="tel" placeholder="请输入账号" [(ngModel)]="user.uaccount" clearInput=true></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="password" placeholder="请输入密码" [(ngModel)]="user.upasswd" clearInput=true></ion-input>
+      </ion-item>
+
+      <button ion-button block color="white" (click)="login()">登录</button>
+
+    </div>
+</ion-content>

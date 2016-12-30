@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>缴费管理</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>缴费项目</ion-label>
+    <ion-select interface="action-sheet" [(ngModel)]="payItem" (ionChange)="changeItem()" cancelText="取消">
+      <ion-option value="1" selected="true">水费</ion-option>
+      <ion-option value="2">电费</ion-option>
+      <ion-option value="3">物业费</ion-option>
+      <ion-option value="4">宽带费</ion-option>
+      <ion-option value="5">房租</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <div padding>
+    <ion-segment [(ngModel)]="dealState" (ionChange)="segmentChanged()">
+      <ion-segment-button value="waitDeal">未处理</ion-segment-button>
+      <ion-segment-button value="dealed">已处理</ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="dealState">
+
+    <ion-list *ngSwitchCase="'waitDeal'">
+      <ion-item (click)="chargeDetail()">
+        <div>
+          <p><span>缴费时间:</span><span>2016.10.20 12:30</span></p>
+          <p><span>缴费金额:</span><span>1000元</span></p>
+          <p><span>房源地址:</span><span>创客空间4B601室</span></p>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'dealed'">
+      <ion-item (click)="chargeList(1)">
+        <div>
+          <p><span>缴费时间:</span><span>2016.10.20 12:30</span></p>
+          <p><span>缴费金额:</span><span>1000元</span></p>
+          <p><span>房源地址:</span><span>创客空间4B601室</span></p>
+        </div>
+      </ion-item>
+    </ion-list>
+
+  </div>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

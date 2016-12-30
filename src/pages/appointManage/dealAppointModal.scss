@@ -1,0 +1,70 @@
+dealAppointModal {
+
+  .rating {
+    margin: 4rem 3rem;
+
+    div:first-of-type {
+      text-align: center;
+      margin-bottom: 1rem;
+
+      ion-icon {
+        color: #EFA421;
+        font-size: 3rem;
+        margin: 0 0.4rem;
+      }
+
+    }
+    ion-textarea {
+      height: auto;
+      padding: 1rem;
+      border: 0.55px #eee solid;
+      border-radius: 0.8rem;
+
+      textarea {
+        margin: 0;
+        padding-right: 0;
+        height: 8rem;
+      }
+
+    }
+  }
+  .single-row {
+    padding: 2rem;
+    width: 100%;
+    button {
+      width: 100%;
+    }
+  }
+  ion-label {
+    color: gray;
+  }
+  .with-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 0.55px #e4e4e4 solid;
+
+    ion-datetime {
+      padding-left: 0;
+      .datetime-text{
+        margin: 0;
+      }
+    }
+    &:after {
+      box-sizing: border-box;
+      display: inline-block;
+      font-family: Ionicons;
+      speak: none;
+      font-style: normal;
+      font-weight: 400;
+      font-variant: normal;
+      text-transform: none;
+      text-rendering: auto;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      content: "\f3d1";
+      margin-right: 0.8rem;
+      font-size: 2.6rem;
+    }
+  }
+}

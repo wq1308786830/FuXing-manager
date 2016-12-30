@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-title>
+      故障报修
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-list no-lines class="repair-form">
+      <ion-item>
+        <ion-label floating>报修内容</ion-label>
+        <ion-textarea [(ngModel)]="data.repairmsg" readonly></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <img src="assets/img/xtb_1.png">
+          联系电话
+        </ion-label>
+        <ion-input [(ngModel)]="data.phone" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <img src="assets/img/xtb_2.png">
+          联系人
+        </ion-label>
+        <ion-input [(ngModel)]="data.name" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <img src="assets/img/xtb_3.png">
+          维修地址
+        </ion-label>
+        <ion-input [(ngModel)]="data.house" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <img src="assets/img/xtb_4.png">报修时间
+        </ion-label>
+        {{data.needrepairtime}}
+      </ion-item>
+      <ion-item>
+        <ion-label>业主在家</ion-label>
+        <ion-checkbox [(ngModel)]="data.inhome"></ion-checkbox>
+      </ion-item>
+      <div class="img-container">
+        <ion-grid>
+          <ion-row>
+            <ion-col width-33><img [src]="data.img"></ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <ion-item>
+        <ion-label>
+          维修价格
+        </ion-label>
+        <ion-input [(ngModel)]="data.price" placeholder="请输入维修人价格" *ngIf="data.repairer" readonly></ion-input>
+        <ion-input [(ngModel)]="data.price" placeholder="请输入维修人价格" *ngIf="!data.repairer"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+         维修人员
+        </ion-label>
+        <ion-input [(ngModel)]="data.repairer" placeholder="请输入维修人员姓名" *ngIf="data.repairer" readonly></ion-input>
+        <ion-input [(ngModel)]="data.repairer" placeholder="请输入维修人员姓名" *ngIf="!data.repairer"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          联系方式
+        </ion-label>
+        <ion-input [(ngModel)]="data.repairerphone" placeholder="请输入联系方式" *ngIf="data.repairer" readonly></ion-input>
+        <ion-input [(ngModel)]="data.repairerphone" placeholder="请输入联系方式" *ngIf="!data.repairer"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>请输入处理结果</ion-label>
+        <ion-textarea [(ngModel)]="data.domsg" *ngIf="data.repairer" readonly></ion-textarea>
+        <ion-textarea [(ngModel)]="data.domsg" *ngIf="!data.repairer"></ion-textarea>
+      </ion-item>
+    </ion-list>
+
+  <div class="single-row" *ngIf="!data.repairer">
+    <button ion-button (click)="onClickSubmit()">提交</button>
+  </div>
+</ion-content>

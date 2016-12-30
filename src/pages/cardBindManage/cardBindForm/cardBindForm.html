@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>新开门禁卡</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>门禁卡号:</ion-label>
+        <ion-input [(ngModel)]="formDetail.cardNo" placeholder="请输入"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>开卡时间：</ion-label>
+      <ion-datetime displayFormat="YYYY年MM月DD日 hh:mm" [(ngModel)]="formDetail.startDate" doneText="完成"
+                    cancelText="取消" min="2016" max="2020"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>房间地址：</ion-label>
+      <ion-select #building interface="action-sheet" [(ngModel)]="formDetail.houseItem"
+                  cancelText="取消" (ionChange)="getSelData()">
+        <ion-option value="1" selected="true">水费</ion-option>
+        <ion-option value="2">电费</ion-option>
+        <ion-option value="3">物业费</ion-option>
+        <ion-option value="4">宽带费</ion-option>
+        <ion-option value="5">房租</ion-option>
+      </ion-select>
+      <ion-select #house interface="action-sheet" [(ngModel)]="formDetail.houseItem" cancelText="取消">
+        <ion-option value="1" selected="true">水费</ion-option>
+        <ion-option value="2">电费</ion-option>
+        <ion-option value="3">物业费</ion-option>
+        <ion-option value="4">宽带费</ion-option>
+        <ion-option value="5">房租</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>有效期到：</ion-label>
+      <ion-datetime displayFormat="YYYY年MM月DD日 hh:mm" [(ngModel)]="formDetail.endDate" doneText="完成"
+                    cancelText="取消" min="2016" max="2020"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>领取人名:</ion-label>
+        <ion-input [(ngModel)]="formDetail.name" placeholder="请输入"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>联系电话:</ion-label>
+        <ion-input [(ngModel)]="formDetail.phoneNo" placeholder="请输入"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <div class="single-row">
+    <button ion-button (click)="onClickSubmit()">提交</button>
+  </div>
+
+
+</ion-content>

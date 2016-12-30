@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>签约管理</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <div padding>
+    <ion-segment [(ngModel)]="signList">
+      <ion-segment-button value="waitSign">未签约</ion-segment-button>
+      <ion-segment-button value="signed">已签约</ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="signList">
+
+    <ion-list *ngSwitchCase="'waitSign'">
+      <ion-item (click)="onClickHouseDetail()">
+        <div item-left>创客空间401</div>
+        <div item-right>未签</div>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'signed'">
+      <ion-grid>
+        <ion-row>
+          <ion-col>房源地址</ion-col><ion-col>到期时间</ion-col>
+        </ion-row>
+
+        <ion-row (click)="onClickRentDetail()">
+          <ion-col>创客空间401</ion-col><ion-col>2017-09-08</ion-col>
+        </ion-row>
+        <ion-row (click)="onClickRentDetail()">
+          <ion-col>创客空间401</ion-col><ion-col>2017-09-08</ion-col>
+        </ion-row>
+        <ion-row (click)="onClickRentDetail()">
+          <ion-col>创客空间401</ion-col><ion-col>2017-09-08</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+
+  </div>
+
+</ion-content>

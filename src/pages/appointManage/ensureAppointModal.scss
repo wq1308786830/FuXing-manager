@@ -1,0 +1,40 @@
+ensureAppointModal {
+  .rating {
+    margin: 4rem 3rem;
+
+    div:first-of-type {
+      text-align: center;
+      margin-bottom: 1rem;
+
+      ion-icon {
+        color: #EFA421;
+        font-size: 3rem;
+        margin: 0 0.4rem;
+      }
+
+    }
+    ion-textarea {
+      height: auto;
+      padding: 1rem;
+      border: 0.55px #eee solid;
+      border-radius: 0.8rem;
+
+      textarea {
+        margin: 0;
+        padding-right: 0;
+        height: 8rem;
+      }
+
+    }
+  }
+  .single-row {
+    padding: 2rem;
+    width: 100%;
+    button {
+      width: 100%;
+    }
+  }
+  ion-label {
+    color: gray;
+  }
+}

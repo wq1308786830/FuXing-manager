@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-navbar>
+      <ion-title>
+        邮件代收
+      </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div padding>
+    <ion-segment [(ngModel)]="receiveTag" (ionChange)="segmentChanged()">
+      <ion-segment-button value="waitArrive">
+        未到达
+      </ion-segment-button>
+      <ion-segment-button value="arrived">
+        已到达
+      </ion-segment-button>
+      <ion-segment-button value="received">
+        已签收
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="receiveTag">
+
+    <ion-list *ngSwitchCase="'waitArrive'" no-lines>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col>快递单号</ion-col>
+            <ion-col>快递公司</ion-col>
+            <ion-col>到达</ion-col>
+          </ion-row>
+
+          <ion-row *ngFor="let waitItem of waitArriveList" (click)="mailDetail(waitItem)">
+            <ion-col>{{waitItem.mailno}}</ion-col>
+            <ion-col>{{waitItem.mailcom}}</ion-col>
+            <ion-col><input type="checkbox" (change)="checkedItem(waitItem.id)"></ion-col>
+          </ion-row>
+
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'arrived'" no-lines>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col>快递单号</ion-col>
+            <ion-col>快递公司</ion-col>
+            <ion-col>签收</ion-col>
+          </ion-row>
+
+          <ion-row *ngFor="let aItem of arrivedList" (click)="mailDetail(aItem)">
+            <ion-col>{{aItem.mailno}}</ion-col>
+            <ion-col>{{aItem.mailcom}}</ion-col>
+            <ion-col><input type="checkbox" (change)="checkedItem(aItem.id)"></ion-col>
+          </ion-row>
+
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'received'" no-lines>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col>快递单号</ion-col>
+            <ion-col>快递公司</ion-col>
+            <ion-col>签收时间</ion-col>
+          </ion-row>
+
+          <ion-row *ngFor="let rItem of receivedList" (click)="mailDetail(rItem)">
+            <ion-col>{{rItem.mailno}}</ion-col>
+            <ion-col>{{rItem.mailcom}}</ion-col>
+            <ion-col>{{rItem.signedtime}}</ion-col>
+          </ion-row>
+
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+
+  </div>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <footer *ngIf="receiveTag == 'waitArrive' || receiveTag == 'arrived'">
+    <button ion-button block (click)="onClickSubmit()">提交</button>
+  </footer>
+
+</ion-content>

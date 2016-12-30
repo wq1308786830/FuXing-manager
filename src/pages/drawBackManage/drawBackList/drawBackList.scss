@@ -1,0 +1,39 @@
+drawBackList {
+  ion-content {
+    background-color: #eee!important;
+  }
+  ion-list {
+    ion-item {
+      margin-bottom: 1rem!important;
+      p {
+        margin-bottom: 1rem!important;
+        span {
+          &:last-of-type {
+            color: #2d2d2d;
+            margin-left: 1rem;
+          }
+        }
+        &:last-of-type {
+          margin-bottom: 0!important;
+        }
+      }
+      ion-icon {
+        color: $green-app;
+      }
+      .bottom-bar {
+        font-size: 1.3rem;
+        line-height: 2.6;
+        color: gray;
+        margin-top: 1rem;
+        margin-bottom: -0.4rem;
+        border-top: 0.55px #eee dashed;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        button {
+          font-size: 1.2rem!important;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      看房管理
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div padding>
+    <ion-segment [(ngModel)]="appoint" (ionChange)="segmentChanged()">
+      <ion-segment-button value="waitAccept">待接单</ion-segment-button>
+      <ion-segment-button value="waitSure">待确认</ion-segment-button>
+      <ion-segment-button value="waitAppoint">未看房</ion-segment-button>
+      <ion-segment-button value="appointed">已看房</ion-segment-button>
+    </ion-segment>
+  </div>
+  <div [ngSwitch]="appoint">
+
+    <ion-list *ngSwitchCase="'waitAccept'">
+      <ion-item *ngFor="let appointItem of appointList">
+        <div item-left>
+          <p><span>预约时间:</span><span>{{appointItem.appointdt}}</span></p>
+          <p><span>联系方式:</span><span>{{appointItem.phone}}</span></p>
+          <p><span>看房地址:</span><span>{{appointItem.housestylename}}</span></p>
+        </div>
+        <button item-right ion-button (click)="acceptAppoint(appointItem.taskid, $event)">接单</button>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'waitSure'">
+      <ion-item *ngFor="let item of acceptAppointList">
+        <div item-left>
+          <p><span>预约时间:</span><span>{{item.appointdt}}</span></p>
+          <p><span>联系方式:</span><span>{{item.phone}}</span></p>
+          <p><span>看房地址:</span><span>{{item.housestylename}}</span></p>
+        </div>
+        <button item-right ion-button (click)="askAppoint(item.taskid)">确认</button>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'waitAppoint'">
+      <ion-item *ngFor="let waitItem of waitAppointList">
+        <div item-left>
+          <p><span>预约时间:</span><span>{{waitItem.appointdt}}</span></p>
+          <p><span>联系方式:</span><span>{{waitItem.phone}}</span></p>
+          <p><span>看房地址:</span><span>{{waitItem.housestylename}}</span></p>
+        </div>
+        <ion-icon name="create-outline" item-right (click)="appraiseAppoint(waitItem.taskid)"></ion-icon>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'appointed'">
+      <ion-item *ngFor="let appointedItem of appointedList">
+        <div item-left>
+          <p><span>预约时间:</span><span>{{appointedItem.appointdt}}</span></p>
+          <p><span>联系方式:</span><span>{{appointedItem.phone}}</span></p>
+          <p><span>看房地址:</span><span>{{appointedItem.housestylename}}</span></p>
+        </div>
+        <ion-icon name="checkmark" item-right></ion-icon>
+      </ion-item>
+    </ion-list>
+
+  </div>
+</ion-content>

@@ -1,0 +1,29 @@
+cardBindForm {
+  ion-list {
+    ion-item {
+      font-size: 1.4rem!important;
+      .item-inner {
+        border-bottom: 0.55px #eee solid!important;
+      }
+      ion-label {
+        color: gray;
+      }
+      ion-input {
+        input {
+          text-align: right;
+          padding-right: 0!important;
+        }
+      }
+      &:last-of-type {
+        border: none!important;
+      }
+    }
+  }
+  .single-row {
+    padding: 2rem;
+    width: 100%;
+    button {
+      width: 100%;
+    }
+  }
+}

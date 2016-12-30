@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-title>
+      邮件代收
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>
+        <ion-icon name="md-car"></ion-icon>
+      </ion-label>
+      <ion-input [(ngModel)]="data.mailcom" readonly></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <ion-icon name="mail-outline"></ion-icon>
+      </ion-label>
+      <ion-input [(ngModel)]="data.mailno" readonly></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <ion-icon name="call"></ion-icon>
+        联系电话
+      </ion-label>
+      <ion-input [(ngModel)]="data.mphone" readonly></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <ion-icon name="person"></ion-icon>
+        联系人
+      </ion-label>
+      <ion-input [(ngModel)]="data.mname" readonly></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <ion-icon name="home"></ion-icon>
+        收货地址
+      </ion-label>
+      <ion-input [(ngModel)]="data.mhouse" readonly></ion-input>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

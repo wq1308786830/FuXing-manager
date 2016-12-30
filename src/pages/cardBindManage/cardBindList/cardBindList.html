@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>开卡管理</ion-title>
+    <ion-buttons end>
+      <button ion-button color="black" (click)="addCardBind()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list no-lines>
+    <ion-item>
+      <div>
+        <p><span>门禁卡号:</span><span>312434</span></p>
+        <p><span>开卡时间:</span><span>2016.10.20 12:30</span></p>
+        <p><span>有效期到:</span><span>2017.10.20</span></p>
+        <p><span>房间地址:</span><span>创客空间4B601室</span></p>
+      </div>
+    </ion-item>
+    <ion-item>
+      <div>
+        <p><span>门禁卡号:</span><span>312434</span></p>
+        <p><span>开卡时间:</span><span>2016.10.20 12:30</span></p>
+        <p><span>有效期到:</span><span>2017.10.20</span></p>
+        <p><span>房间地址:</span><span>创客空间4B601室</span></p>
+      </div>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

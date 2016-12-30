@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-title>
+      保洁详情
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-list no-lines class="repair-form">
+      <ion-item>
+        <ion-label floating>清洁内容</ion-label>
+        <ion-textarea [(ngModel)]="data.cleanmsg" readonly></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <img src="assets/img/xtb_1.png">
+          联系电话
+        </ion-label>
+        <ion-input [(ngModel)]="data.phone" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <img src="assets/img/xtb_2.png">
+          联系人
+        </ion-label>
+        <ion-input [(ngModel)]="data.name" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <img src="assets/img/xtb_3.png">
+          清洁地址
+        </ion-label>
+        <ion-input [(ngModel)]="data.house" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <img src="assets/img/xtb_4.png">报修时间
+        </ion-label>
+        {{data.needcleantime}}
+      </ion-item>
+      <ion-item>
+        <ion-label>业主在家</ion-label>
+        <ion-checkbox [(ngModel)]="data.inhome"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          清洁价格
+        </ion-label>
+        <ion-input [(ngModel)]="data.price" *ngIf="data.cleaner" readonly></ion-input>
+        <ion-input [(ngModel)]="data.price" placeholder="请输入维修人价格" *ngIf="!data.cleaner"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+         清洁人员
+        </ion-label>
+        <ion-input [(ngModel)]="data.cleaner" *ngIf="data.cleaner" readonly></ion-input>
+        <ion-input [(ngModel)]="data.cleaner" placeholder="请输入维修人员姓名" *ngIf="!data.cleaner"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          联系方式
+        </ion-label>
+        <ion-input [(ngModel)]="data.cleanerphone" *ngIf="data.cleaner" readonly></ion-input>
+        <ion-input [(ngModel)]="data.cleanerphone" placeholder="请输入联系方式" *ngIf="!data.cleaner"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>请输入处理结果</ion-label>
+        <ion-textarea [(ngModel)]="data.domsg" *ngIf="data.cleaner" readonly></ion-textarea>
+        <ion-textarea [(ngModel)]="data.domsg" *ngIf="!data.cleaner"></ion-textarea>
+      </ion-item>
+    </ion-list>
+
+  <div class="single-row" *ngIf="!data.cleaner">
+    <button ion-button (click)="onClickSubmit()">提交</button>
+  </div>
+</ion-content>

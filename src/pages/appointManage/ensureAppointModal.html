@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      确认结果
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span>取消</span>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="rating">
+    <ion-textarea [(ngModel)]="dealContent" placeholder="请输入确认结果"></ion-textarea>
+  </div>
+  <div class="single-row">
+    <button ion-button (click)="confirmAppoint(true)">确认看房</button>
+    <button ion-button (click)="confirmAppoint(false)">取消看房</button>
+  </div>
+</ion-content>

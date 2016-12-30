@@ -1,0 +1,25 @@
+drawBackDetail {
+  ion-list {
+    ion-item {
+      p {
+        span {
+          &:last-of-type {
+            color: #2d2d2d;
+            margin-left: 1rem;
+          }
+        }
+      }
+      ion-icon {
+        color: $green-app;
+      }
+    }
+  }
+  @extend cardBindForm;
+  .single-row {
+    padding: 2rem;
+    width: 100%;
+    button {
+      width: 100%;
+    }
+  }
+}
