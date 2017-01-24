@@ -11,6 +11,8 @@ import {CleanList} from "../cleanManage/cleanList/cleanList";
 import {MailReceive} from "../mailManage/mailReceive/mailReceive";
 import {DrawBackList} from "../drawBackManage/drawBackList/drawBackList";
 import {CardBindList} from "../cardBindManage/cardBindList/cardBindList";
+import {FinanceChart} from "../financeManage/financeChart/financeChart";
+import {Utils} from "../../services/utils";
 
 @Component({
   selector: 'mainHome',
@@ -28,7 +30,8 @@ export class MainHome {
 
   };
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController,
+              public util: Utils) {
 
   }
 
@@ -64,11 +67,13 @@ export class MainHome {
         break;
 
       case 8:
-        this.navCtrl.push(CleanList);
+        this.util.showAlertMsg("该功能正在研发当中");
+        // this.navCtrl.push(FinanceChart);
         break;
 
       case 9:
-        this.navCtrl.push(CardBindList);
+        this.util.showAlertMsg("该功能正在研发当中");
+        // this.navCtrl.push(CardBindList);
         break;
 
       default:

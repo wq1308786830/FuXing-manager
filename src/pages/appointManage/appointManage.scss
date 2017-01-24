@@ -1,8 +1,12 @@
 appointManage {
 
+  ion-content {
+    background-color: #eee!important;
+  }
+
   ion-list {
     ion-item {
-      border-bottom: 0.55px #e4e4e4 solid!important;
+      margin-bottom: 0.6rem!important;
       div.item-inner {
         border: none!important;
       }

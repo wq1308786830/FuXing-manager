@@ -16,43 +16,44 @@
   <div [ngSwitch]="drawBack">
 
     <ion-list *ngSwitchCase="'waitDeal'" no-lines>
-      <ion-item>
-        <div>
-          <p><span>申请时间:</span><span>2016.10.20 12:30</span></p>
-          <p><span>联系方式:</span><span>18333333333</span></p>
-          <p><span>房源地址:</span><span>创客空间4B601室</span></p>
-          <div class="bottom-bar">
-            <span>处理结果</span>
-            <button ion-button (click)="goDealDrawBack()">去结算</button>
+      <div *ngIf="unrentList.length">
+        <ion-item *ngFor="let item of unrentList">
+          <div>
+            <p><span>申请时间:</span><span>{{item.unrentTime}}</span></p>
+            <p><span>联系方式:</span><span>{{item.makerPhone}}</span></p>
+            <p><span>房源地址:</span><span>{{item.houseName}}</span></p>
+            <div class="bottom-bar">
+              <span>处理结果</span>
+              <button *ngIf="item.status == 1" ion-button (click)="goDealDrawBack(item)">去结算</button>
+            </div>
           </div>
-        </div>
-      </ion-item>
-      <ion-item>
-        <div>
-          <p><span>申请时间:</span><span>2016.10.20 12:30</span></p>
-          <p><span>联系方式:</span><span>18333333333</span></p>
-          <p><span>房源地址:</span><span>创客空间4B601室</span></p>
-          <div class="bottom-bar">
-            <span>处理结果</span>
-            <button ion-button (click)="goDealDrawBack()">去结算</button>
-          </div>
-        </div>
-      </ion-item>
+        </ion-item>
+      </div>
+      <div *ngIf="!unrentList.length" class="nodata-tip">
+        没有数据~
+      </div>
     </ion-list>
 
 
     <ion-list *ngSwitchCase="'dealt'" no-lines>
-      <ion-item>
-        <div>
-          <p><span>申请时间:</span><span>2016.10.20 12:30</span></p>
-          <p><span>联系方式:</span><span>18333333333</span></p>
-          <p><span>房源地址:</span><span>创客空间4B601室</span></p>
-          <div class="bottom-bar">
-            <span>处理结果</span>
-            <span>审批中</span>
+      <div *ngIf="unrentList.length">
+        <ion-item *ngFor="let item of unrentList" (click)="goDetailDrawBack(item)">
+          <div>
+            <p><span>申请时间:</span><span>{{item.unrentTime}}</span></p>
+            <p><span>联系方式:</span><span>{{item.makerPhone}}</span></p>
+            <p><span>房源地址:</span><span>{{item.houseName}}</span></p>
+            <div class="bottom-bar">
+              <span>处理结果</span>
+              <span *ngIf="item.status == 20">审批中</span>
+              <span *ngIf="item.status == 30">审批通过</span>
+              <span *ngIf="item.status == 40">已打款</span>
+            </div>
           </div>
-        </div>
-      </ion-item>
+        </ion-item>
+      </div>
+      <div *ngIf="!unrentList.length" class="nodata-tip">
+        没有数据~
+      </div>
     </ion-list>
 
   </div>

@@ -13,12 +13,20 @@ import {RepairInfo, CleanInfo} from "../../../beans/beans";
 export class CleanDetail implements OnInit {
 
   public data: CleanInfo;
+  public formData: any;
 
   constructor(public params: NavParams,
               public loadingCtrl: LoadingController,
               public util: Utils,
               private httpService: ManagerHttpService) {
     this.data = params.get('data');
+    this.formData = {
+      id: this.data.id,
+      price: '',
+      cleaner: '',
+      cleanerphone: '',
+      domsg: ''
+    }
   }
 
   ngOnInit() {
@@ -31,12 +39,12 @@ export class CleanDetail implements OnInit {
   onClickSubmit() {
     let loader = this.loadingCtrl.create({content: "加载中..."});
     loader.present();
-    this.httpService.saveCleanDetail(this.data).subscribe(() => {
+    this.httpService.saveCleanDetail(this.formData).subscribe(() => {
       loader.dismiss();
-      
+
     }, err => {
       loader.dismiss();
-      this.util.showAlertMsg('提交失败，请重试');
+      this.util.showAlertMsg(err);
     });
   }
 

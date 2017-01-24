@@ -1,38 +1,74 @@
 /**
  * Created by russell on 2016/12/22.
  */
-import {Component, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {NavController, LoadingController} from "ionic-angular";
 import {ChargeDetail} from "../chargeDetail/chargeDetail";
 import {ChargeList} from "../chargeList/chargeList";
+import {MoneyPayInfo} from "../../../beans/beans";
+import {ManagerHttpService} from "../../../services/manager-http-service";
+import {Utils} from "../../../services/utils";
 @Component({
   selector: 'payments',
   templateUrl: 'payments.html'
 })
-export class Payments implements OnInit {
+export class Payments {
 
   dealState = 'waitDeal';
-  public payItem: string;
+  public payItem: number;
+  public lists: MoneyPayInfo[];
+  public currPage1: number;
+  public currPage2: number;
 
   constructor(public navCtrl: NavController,
-              public loadingCtrl: LoadingController) {
-    this.payItem = '1';
-  }
-
-  ngOnInit(): void {
-
+              public loadingCtrl: LoadingController,
+              public util: Utils,
+              private httpService: ManagerHttpService) {
+    this.payItem = 2;
+    this.lists = [];
+    this.currPage1 = 1;
+    this.currPage2 = 1;
   }
 
   changeItem() {
-
+    this.segmentChanged();
   }
 
-  chargeDetail() {
-    this.navCtrl.push(ChargeDetail, {canCharge: true});
+  ionViewDidEnter() {
+    this.segmentChanged();
   }
 
-  chargeList(id: number) {
-    this.navCtrl.push(ChargeList, {id: id});
+  chargeDetail(paymentDetail: MoneyPayInfo) {
+    this.navCtrl.push(ChargeDetail, {canCharge: true, paymentDetail: paymentDetail});
+  }
+
+  chargeList(paymentDetail: MoneyPayInfo) {
+    this.navCtrl.push(ChargeList, {paymentDetail: paymentDetail, feetype: this.payItem});
+  }
+
+  getSegmentData(feetype: number, isDone: boolean) {
+    let loader = this.loadingCtrl.create({content: "加载中..."});
+    loader.present();
+    this.httpService.getMoneyBillList(feetype, isDone, 1).subscribe(data => {
+      loader.dismiss();
+      if (data) {
+        this.lists = data;
+      }
+    }, err => {
+      loader.dismiss();
+      this.util.showAlertMsg('获取数据失败，请重试');
+    });
+  }
+
+  getInfiniteData(feetype: number, isDone: boolean, currPage: number, ev) {
+    this.httpService.getMoneyBillList(feetype, isDone, currPage).subscribe(data => {
+      if (data) {
+        this.lists = this.lists.concat(data);
+      }
+      ev.complete();
+    }, err => {
+      ev.complete();
+    });
   }
 
   /**
@@ -40,17 +76,22 @@ export class Payments implements OnInit {
    */
   segmentChanged() {
 
-    let loader;
+    this.currPage1 = 1;
+    this.currPage2 = 1;
+    this.lists = [];
+    let flag = false;
+    if (this.payItem == 2 || this.payItem == 3) {
+      flag = true;
+    }
+
     switch (this.dealState) {
 
       case 'waitDeal':
-        loader = this.loadingCtrl.create({ content: "正在加载..." });
-        loader.present();
+        this.getSegmentData(this.payItem, flag);
         break;
 
       case 'dealed':
-        loader = this.loadingCtrl.create({ content: "正在加载..." });
-        loader.present();
+        this.getSegmentData(this.payItem, true);
         break;
 
       default:
@@ -63,13 +104,11 @@ export class Payments implements OnInit {
     switch (this.dealState) {
 
       case 'waitDeal':
-        ev.complete();
-
+        this.getInfiniteData(this.payItem, false, ++this.currPage1, ev);
         break;
 
       case 'dealed':
-        ev.complete();
-
+        this.getInfiniteData(this.payItem, true, ++this.currPage2, ev);
         break;
 
       default:

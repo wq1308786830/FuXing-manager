@@ -1,7 +1,7 @@
 /**
  * Created by russell on 2016/12/13.
  */
-import {Component, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {NavController, LoadingController} from "ionic-angular";
 import {FaultRepairDetail} from "../faultRepairDetail/faultRepairDetail";
 import {ManagerHttpService} from "../../../services/manager-http-service";
@@ -12,7 +12,7 @@ import {CleanDetail} from "../cleanDetail/cleanDetail";
   selector: 'cleanList',
   templateUrl: 'cleanList.html'
 })
-export class CleanList implements OnInit {
+export class CleanList {
 
   cleanList = 'waitClean';
   public waitCleanList: CleanInfo[];
@@ -30,7 +30,7 @@ export class CleanList implements OnInit {
     this.curPage2 = 0;
   }
 
-  ngOnInit() {
+  ionViewDidEnter() {
     let loader = this.loadingCtrl.create({content: "加载中..."});
     loader.present();
     this.httpService.getCleanList(0, false).subscribe(data => {
@@ -40,7 +40,7 @@ export class CleanList implements OnInit {
       }
     }, err => {
       loader.dismiss();
-      this.util.showAlertMsg('获取数据失败，请重试');
+      this.util.showAlertMsg(err);
     });
   }
 
@@ -50,16 +50,16 @@ export class CleanList implements OnInit {
   }
 
   //催缴
-  callPay(id: number) {
+  callPay(id: number, e) {
+    e.stopPropagation();
     let loader = this.loadingCtrl.create({content: "操作中..."});
     loader.present();
     this.httpService.cleanMoneyCall(id).subscribe(() => {
       loader.dismiss();
     }, err => {
       loader.dismiss();
-      this.util.showAlertMsg('催缴失败，请重试');
+      this.util.showAlertMsg(err);
     });
-    return false;
   }
 
   segmentChanged() {
@@ -76,7 +76,7 @@ export class CleanList implements OnInit {
           }
         }, err => {
           loader.dismiss();
-          this.util.showAlertMsg('获取数据失败，请重试');
+          this.util.showAlertMsg(err);
         });
         break;
 
@@ -90,7 +90,7 @@ export class CleanList implements OnInit {
           }
         }, err => {
           loader.dismiss();
-          this.util.showAlertMsg('获取数据失败，请重试');
+          this.util.showAlertMsg(err);
         });
         break;
 

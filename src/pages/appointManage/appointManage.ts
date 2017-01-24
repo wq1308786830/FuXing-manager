@@ -1,7 +1,7 @@
 /**
  * Created by russell on 2016/12/21.
  */
-import {Component, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {NavController, ModalController, LoadingController} from "ionic-angular";
 import {DealAppointModal} from "./dealAppointModal";
 import {ManagerHttpService} from "../../services/manager-http-service";
@@ -12,7 +12,7 @@ import {EnsureAppointModal} from "./ensureAppointModal";
   selector: 'appointManage',
   templateUrl: 'appointManage.html'
 })
-export class AppointManage implements OnInit {
+export class AppointManage {
 
   appoint = 'waitAccept';
   public appointList: AppointBase[];
@@ -31,34 +31,20 @@ export class AppointManage implements OnInit {
     this.appointedList = [];
   }
 
-  ngOnInit(): void {
-    this.initData();
-  }
-
-  initData() {
-
-    this.httpService.getAppointList().subscribe(data => {
-      if (data) {
-        this.appointList = data;
-      }
-    }, err => {
-      this.util.showAlertMsg('获取数据失败，请重试');
-    });
+  ionViewDidEnter() {
+    this.segmentChanged();
   }
 
   acceptAppoint(taskid: string, event) {
 
     let loader = this.loadingCtrl.create({content: "接单中..."});
     loader.present();
-
     this.httpService.getAcceptAppoint(taskid).subscribe(data => {
-
       loader.dismiss();
-      this.initData();
+      this.segmentChanged();
     }, err => {
-
       loader.dismiss();
-      this.util.showAlertMsg('接单失败，请重试');
+      this.util.showAlertMsg(err);
     });
   }
 
@@ -74,45 +60,61 @@ export class AppointManage implements OnInit {
   }
 
   segmentChanged() {
-
+    this.appointList = [];
+    this.waitAppointList = [];
+    this.acceptAppointList = [];
+    this.appointedList = [];
+    let loader = this.loadingCtrl.create({content: "加载中..."});
     switch (this.appoint) {
       case 'waitAccept':
+        loader.present();
         this.httpService.getAppointList().subscribe(data => {
+          loader.dismiss();
           if (data) {
             this.appointList = data;
           }
         }, err => {
-          this.util.showAlertMsg('获取数据失败，请重试');
+          loader.dismiss();
+          this.util.showAlertMsg(err);
         });
         break;
 
       case 'waitSure':
+        loader.present();
         this.httpService.getAcceptAppointList().subscribe(data => {
+          loader.dismiss();
           if (data) {
             this.acceptAppointList = data;
           }
         }, err => {
-          this.util.showAlertMsg('获取数据失败，请重试');
+          loader.dismiss();
+          this.util.showAlertMsg(err);
         });
         break;
 
       case 'waitAppoint':
+        loader.present();
         this.httpService.getWaitAppointList().subscribe(data => {
+          loader.dismiss();
           if (data) {
             this.waitAppointList = data;
           }
         }, err => {
-          this.util.showAlertMsg('获取数据失败，请重试');
+          loader.dismiss();
+          this.util.showAlertMsg(err);
         });
         break;
 
       case 'appointed':
+        loader.present();
         this.httpService.getAppointedList().subscribe(data => {
+          loader.dismiss();
           if (data) {
             this.appointedList = data;
           }
         }, err => {
-          this.util.showAlertMsg('获取数据失败，请重试');
+          loader.dismiss();
+          this.util.showAlertMsg(err);
         });
         break;
 
@@ -127,10 +129,10 @@ export class AppointManage implements OnInit {
     switch (this.appoint) {
       case 'waitAccept':
         this.httpService.getAppointList().subscribe(data => {
-          e.complete();
           if (data) {
             this.appointList = this.appointList.concat(data);
           }
+          e.complete();
         }, err => {
           e.complete();
         });
@@ -138,10 +140,10 @@ export class AppointManage implements OnInit {
 
       case 'waitSure':
         this.httpService.getAcceptAppointList().subscribe(data => {
-          e.complete();
           if (data) {
             this.acceptAppointList = this.acceptAppointList.concat(data);
           }
+          e.complete();
         }, err => {
           e.complete();
         });
@@ -149,10 +151,10 @@ export class AppointManage implements OnInit {
 
       case 'waitAppoint':
         this.httpService.getWaitAppointList().subscribe(data => {
-          e.complete();
           if (data) {
             this.waitAppointList = this.waitAppointList.concat(data);
           }
+          e.complete();
         }, err => {
           e.complete();
         });
@@ -160,10 +162,10 @@ export class AppointManage implements OnInit {
 
       case 'appointed':
         this.httpService.getAppointedList().subscribe(data => {
-          e.complete();
           if (data) {
             this.appointedList = this.appointedList.concat(data);
           }
+          e.complete();
         }, err => {
           e.complete();
         });

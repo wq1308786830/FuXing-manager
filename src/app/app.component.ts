@@ -10,7 +10,7 @@ import {MainHome} from "../pages/mainHome/mainHome";
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage = MainHome;
+  rootPage = LoginPage;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {

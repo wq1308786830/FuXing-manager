@@ -16,6 +16,7 @@
   </div>
   <div class="single-row">
     <button ion-button (click)="confirmAppoint(true)">确认看房</button>
-    <button ion-button (click)="confirmAppoint(false)">取消看房</button>
+    <button *ngIf="dealContent" ion-button (click)="confirmAppoint(false)">取消看房</button>
+    <button *ngIf="!dealContent" ion-button disabled>取消看房</button>
   </div>
 </ion-content>

@@ -42,20 +42,24 @@ cleanDetail {
       border-bottom: 0.55px #eee solid!important;
       ion-textarea {
         font-size: 1.5rem;
+        border: 0.55px #eee solid;
+        margin-bottom: 1rem;
         .text-input {
           height: 4 * 1.8rem;
+          padding-left: 1rem;
         }
       }
 
       .label-ios {
         img {
-          width: 2.6rem;
-          height: 2.6rem;
-          margin-right: 1rem;
+          width: 2rem;
+          height: 2rem;
+          margin-right: 0.4rem;
         }
         .input-ios {
           .text-input {
             padding-right: 0;
+            text-align: right;
           }
         }
         .icon-ios {
@@ -176,5 +180,9 @@ cleanDetail {
   }
   .label-ios + ion-input .text-input {
     padding-right: 0;
+    text-align: right;
+  }
+  .label-ios[stacked] {
+    font-size: 1.4rem;
   }
 }

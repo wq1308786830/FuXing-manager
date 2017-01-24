@@ -41,10 +41,10 @@ export class EnsureAppointModal implements OnInit {
     this.httpService.getConfirmAppointById(this.taskid, this.dealContent, result).subscribe(data => {
       loader.dismiss();
       this.dismiss();
-      this.signPage.initData();
+      this.signPage.segmentChanged();
     }, err => {
       loader.dismiss();
-      this.util.showAlertMsg('失败，请重试');
+      this.util.showAlertMsg(err);
     });
   }
 

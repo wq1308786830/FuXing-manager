@@ -24,10 +24,20 @@ import {DrawBackList} from "../pages/drawBackManage/drawBackList/drawBackList";
 import {DrawBackDetail} from "../pages/drawBackManage/drawBackDetail/drawBackDetail";
 import {CardBindList} from "../pages/cardBindManage/cardBindList/cardBindList";
 import {CardBindForm} from "../pages/cardBindManage/cardBindForm/cardBindForm";
+import {FinanceChart} from "../pages/financeManage/financeChart/financeChart";
+import {Ng2DateSelect} from "../components/ng2-dateselect/ng2-dateselect";
+import {Ng2DatePicker} from "../components/ng2-datepicker/ng2-datepicker";
+import {DropdownCom} from "../components/dropdown/dropdown-component";
+import {Ng2Echart} from "../components/ng2-echart";
+import {DropdownController} from "../components/dropdown/dropdown";
 
 @NgModule({
   declarations: [
     MyApp,
+    Ng2Echart,
+    DropdownCom,
+    Ng2DatePicker,
+    Ng2DateSelect,
 
     //commom
     LoginPage,
@@ -69,7 +79,10 @@ import {CardBindForm} from "../pages/cardBindManage/cardBindForm/cardBindForm";
 
     //card bind
     CardBindList,
-    CardBindForm
+    CardBindForm,
+
+    //finance
+    FinanceChart
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -81,6 +94,10 @@ import {CardBindForm} from "../pages/cardBindManage/cardBindForm/cardBindForm";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    Ng2Echart,
+    DropdownCom,
+    Ng2DatePicker,
+    Ng2DateSelect,
 
     //commom
     LoginPage,
@@ -122,10 +139,13 @@ import {CardBindForm} from "../pages/cardBindManage/cardBindForm/cardBindForm";
 
     //card bind
     CardBindList,
-    CardBindForm
+    CardBindForm,
+
+    //finance
+    FinanceChart
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},
-    Utils, ManagerHttpService]
+    Utils, ManagerHttpService, DropdownController]
 })
 export class AppModule {
 }

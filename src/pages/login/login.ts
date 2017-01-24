@@ -13,7 +13,7 @@ declare var md5;
 })
 export class LoginPage implements OnInit {
 
-  public user: AccountBean;
+  public user: any;
 
 
   constructor(public navCtrl: NavController,
@@ -21,7 +21,7 @@ export class LoginPage implements OnInit {
               public util: Utils,
               private httpService: ManagerHttpService) {
 
-    this.user = new AccountBean();
+    this.user = {};
 
   }
 
@@ -49,11 +49,10 @@ export class LoginPage implements OnInit {
 
       }, error => {
         loader.dismiss();
-        this.navCtrl.push(MainHome);
-        if (error === "ErrorPassword") {
-          this.util.showAlertMsg('您输入的用户名和密码不匹配，请重新输入.');
+        if (error != "error") {
+          this.util.showAlertMsg(error);
         } else {
-          this.util.showAlertMsg('网络连接出现错误，请稍后再试.');
+          this.util.showAlertMsg('未知错误，请稍后再试.');
         }
       });
 

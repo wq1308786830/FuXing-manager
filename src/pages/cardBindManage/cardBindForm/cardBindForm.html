@@ -19,7 +19,7 @@
     </ion-item>
     <ion-item>
       <ion-label>房间地址：</ion-label>
-      <ion-select #building interface="action-sheet" [(ngModel)]="formDetail.houseItem"
+      <ion-select interface="action-sheet" [(ngModel)]="formDetail.buildingItem"
                   cancelText="取消" (ionChange)="getSelData()">
         <ion-option value="1" selected="true">水费</ion-option>
         <ion-option value="2">电费</ion-option>
@@ -27,7 +27,7 @@
         <ion-option value="4">宽带费</ion-option>
         <ion-option value="5">房租</ion-option>
       </ion-select>
-      <ion-select #house interface="action-sheet" [(ngModel)]="formDetail.houseItem" cancelText="取消">
+      <ion-select interface="action-sheet" [(ngModel)]="formDetail.houseItem" cancelText="取消">
         <ion-option value="1" selected="true">水费</ion-option>
         <ion-option value="2">电费</ion-option>
         <ion-option value="3">物业费</ion-option>

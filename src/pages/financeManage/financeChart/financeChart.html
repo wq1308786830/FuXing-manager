@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>财务管理</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="busadmin-analyze">
+  <ion-item class="select-analyze-type">
+    <ion-select [(ngModel)]="incomeType" interface="action-sheet">
+      <ion-option value="1" selected="true">水费</ion-option>
+      <ion-option value="2">电费</ion-option>
+      <ion-option value="3">物业费</ion-option>
+      <ion-option value="4">宽带费</ion-option>
+      <ion-option value="5">房租</ion-option>
+    </ion-select>
+    <ion-select [(ngModel)]="curDepartmentId" interface="action-sheet">
+      <ion-option selected="true" value="">全部</ion-option>
+      <ion-option></ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-row class="date-type-container">
+    <ion-col>
+      <bird-dateselect (datePickCB)="datePickRes($event)"></bird-dateselect>
+    </ion-col>
+
+  </ion-row>
+
+  <div class="content-container" [ngSwitch]="dataType">
+    <!-- 运营分析 -->
+    <div *ngSwitchCase="'yunying'">
+      <ng2-echart #operationchart [options]="eChartOptions"></ng2-echart>
+    </div>
+  </div>
+</ion-content>

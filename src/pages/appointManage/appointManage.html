@@ -17,48 +17,68 @@
   </div>
   <div [ngSwitch]="appoint">
 
-    <ion-list *ngSwitchCase="'waitAccept'">
-      <ion-item *ngFor="let appointItem of appointList">
-        <div item-left>
-          <p><span>预约时间:</span><span>{{appointItem.appointdt}}</span></p>
-          <p><span>联系方式:</span><span>{{appointItem.phone}}</span></p>
-          <p><span>看房地址:</span><span>{{appointItem.housestylename}}</span></p>
-        </div>
-        <button item-right ion-button (click)="acceptAppoint(appointItem.taskid, $event)">接单</button>
-      </ion-item>
+    <ion-list *ngSwitchCase="'waitAccept'" no-lines>
+      <div *ngIf="appointList.length">
+        <ion-item *ngFor="let appointItem of appointList">
+          <div item-left>
+            <p><span>预约时间:</span><span>{{appointItem.appointdt}}</span></p>
+            <p><span>联系方式:</span><span>{{appointItem.phone}}</span></p>
+            <p><span>看房地址:</span><span>{{appointItem.housestylename}}</span></p>
+          </div>
+          <button item-right ion-button (click)="acceptAppoint(appointItem.taskid, $event)">接单</button>
+        </ion-item>
+      </div>
+      <div class="nodata-tip" *ngIf="!appointList.length">
+        没有数据~
+      </div>
     </ion-list>
 
-    <ion-list *ngSwitchCase="'waitSure'">
-      <ion-item *ngFor="let item of acceptAppointList">
-        <div item-left>
-          <p><span>预约时间:</span><span>{{item.appointdt}}</span></p>
-          <p><span>联系方式:</span><span>{{item.phone}}</span></p>
-          <p><span>看房地址:</span><span>{{item.housestylename}}</span></p>
-        </div>
-        <button item-right ion-button (click)="askAppoint(item.taskid)">确认</button>
-      </ion-item>
+    <ion-list *ngSwitchCase="'waitSure'" no-lines>
+      <div *ngIf="acceptAppointList.length">
+        <ion-item *ngFor="let item of acceptAppointList">
+          <div item-left>
+            <p><span>预约时间:</span><span>{{item.appointdt}}</span></p>
+            <p><span>联系方式:</span><span>{{item.phone}}</span></p>
+            <p><span>看房地址:</span><span>{{item.housestylename}}</span></p>
+          </div>
+          <button item-right ion-button (click)="askAppoint(item.taskid)">确认</button>
+        </ion-item>
+      </div>
+      <div class="nodata-tip" *ngIf="!acceptAppointList.length">
+        没有数据~
+      </div>
     </ion-list>
 
-    <ion-list *ngSwitchCase="'waitAppoint'">
-      <ion-item *ngFor="let waitItem of waitAppointList">
-        <div item-left>
-          <p><span>预约时间:</span><span>{{waitItem.appointdt}}</span></p>
-          <p><span>联系方式:</span><span>{{waitItem.phone}}</span></p>
-          <p><span>看房地址:</span><span>{{waitItem.housestylename}}</span></p>
-        </div>
-        <ion-icon name="create-outline" item-right (click)="appraiseAppoint(waitItem.taskid)"></ion-icon>
-      </ion-item>
+    <ion-list *ngSwitchCase="'waitAppoint'" no-lines>
+      <div *ngIf="waitAppointList.length">
+        <ion-item *ngFor="let waitItem of waitAppointList">
+          <div item-left>
+            <p><span>预约时间:</span><span>{{waitItem.appointdt}}</span></p>
+            <p><span>联系方式:</span><span>{{waitItem.phone}}</span></p>
+            <p><span>看房地址:</span><span>{{waitItem.housestylename}}</span></p>
+          </div>
+          <ion-icon name="create-outline" item-right (click)="appraiseAppoint(waitItem.taskid)"></ion-icon>
+        </ion-item>
+      </div>
+      <div class="nodata-tip" *ngIf="!waitAppointList.length">
+        没有数据~
+      </div>
     </ion-list>
 
-    <ion-list *ngSwitchCase="'appointed'">
-      <ion-item *ngFor="let appointedItem of appointedList">
-        <div item-left>
-          <p><span>预约时间:</span><span>{{appointedItem.appointdt}}</span></p>
-          <p><span>联系方式:</span><span>{{appointedItem.phone}}</span></p>
-          <p><span>看房地址:</span><span>{{appointedItem.housestylename}}</span></p>
-        </div>
-        <ion-icon name="checkmark" item-right></ion-icon>
-      </ion-item>
+    <ion-list *ngSwitchCase="'appointed'" no-lines>
+      <div *ngIf="appointedList.length">
+        <ion-item *ngFor="let appointedItem of appointedList">
+          <div item-left>
+            <p><span>预约时间:</span><span>{{appointedItem.appointdt}}</span></p>
+            <p><span>联系方式:</span><span>{{appointedItem.phone}}</span></p>
+            <p><span>看房地址:</span><span>{{appointedItem.housestylename}}</span></p>
+          </div>
+          <ion-icon name="checkmark" item-right></ion-icon>
+        </ion-item>
+      </div>
+      <div class="nodata-tip" *ngIf="!appointedList.length">
+        没有数据~
+      </div>
     </ion-list>
 
   </div>

@@ -43,10 +43,10 @@ export class DealAppointModal {
     this.httpService.finishAppointById(this.taskid, this.changeDate, this.dealContent).subscribe(data => {
       loader.dismiss();
       this.dismiss();
-      this.signPage.initData();
+      this.signPage.segmentChanged();
     }, err => {
       loader.dismiss();
-      this.util.showAlertMsg('失败，请重试');
+      this.util.showAlertMsg(err);
     });
   }
 

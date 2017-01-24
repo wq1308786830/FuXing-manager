@@ -1,7 +1,7 @@
 /**
  * Created by russell on 2016/12/13.
  */
-import {Component, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {NavController, LoadingController} from "ionic-angular";
 import {FaultRepairDetail} from "../faultRepairDetail/faultRepairDetail";
 import {ManagerHttpService} from "../../../services/manager-http-service";
@@ -11,7 +11,7 @@ import {RepairInfo} from "../../../beans/beans";
   selector: 'faultRepairList',
   templateUrl: 'faultRepairList.html'
 })
-export class FaultRepairList implements OnInit {
+export class FaultRepairList {
 
   faultRepairList = 'waitDeal';
   public waitRepairList: RepairInfo[];
@@ -25,21 +25,21 @@ export class FaultRepairList implements OnInit {
               private httpService: ManagerHttpService) {
     this.waitRepairList = [];
     this.dealedRepairList = [];
-    this.curPage1 = 0;
-    this.curPage2 = 0;
+    this.curPage1 = 1;
+    this.curPage2 = 1;
   }
 
-  ngOnInit() {
+  ionViewDidEnter() {
     let loader = this.loadingCtrl.create({content: "加载中..."});
     loader.present();
-    this.httpService.getRepairList(0, false).subscribe(data => {
+    this.httpService.getRepairList(1, false).subscribe(data => {
       loader.dismiss();
       if (data) {
         this.waitRepairList = data;
       }
     }, err => {
       loader.dismiss();
-      this.util.showAlertMsg('获取数据失败，请重试');
+      this.util.showAlertMsg(err);
     });
   }
 
@@ -54,15 +54,15 @@ export class FaultRepairList implements OnInit {
 
   //催缴
   callPay(id: number, e) {
+    e.stopPropagation();
     let loader = this.loadingCtrl.create({content: "操作中..."});
     loader.present();
     this.httpService.repairMoneyCall(id).subscribe(() => {
       loader.dismiss();
     }, err => {
       loader.dismiss();
-      this.util.showAlertMsg('获取数据失败，请重试');
+      this.util.showAlertMsg(err);
     });
-    return false;
   }
 
   segmentChanged() {
@@ -72,28 +72,28 @@ export class FaultRepairList implements OnInit {
       case 'waitDeal':
         loader = this.loadingCtrl.create({content: "加载中..."});
         loader.present();
-        this.httpService.getRepairList(0, false).subscribe(data => {
+        this.httpService.getRepairList(1, false).subscribe(data => {
           loader.dismiss();
           if (data) {
             this.waitRepairList = data;
           }
         }, err => {
           loader.dismiss();
-          this.util.showAlertMsg('获取数据失败，请重试');
+          this.util.showAlertMsg(err);
         });
         break;
 
       case 'dealed':
         loader = this.loadingCtrl.create({content: "加载中..."});
         loader.present();
-        this.httpService.getRepairList(0, true).subscribe(data => {
+        this.httpService.getRepairList(1, true).subscribe(data => {
           loader.dismiss();
           if (data) {
             this.dealedRepairList = data;
           }
         }, err => {
           loader.dismiss();
-          this.util.showAlertMsg('获取数据失败，请重试');
+          this.util.showAlertMsg(err);
         });
         break;
 
@@ -106,25 +106,25 @@ export class FaultRepairList implements OnInit {
     switch (this.faultRepairList) {
       case 'waitDeal':
         this.httpService.getRepairList(++this.curPage1, false).subscribe(data => {
-          ev.complete();
           if (data) {
             this.waitRepairList = this.waitRepairList.concat(data);
           }
+          ev.complete();
         }, err => {
           ev.complete();
-          this.util.showAlertMsg('获取数据失败，请重试');
+          this.util.showAlertMsg(err);
         });
         break;
 
       case 'dealed':
         this.httpService.getRepairList(++this.curPage2, true).subscribe(data => {
-          ev.complete();
           if (data) {
             this.dealedRepairList = this.dealedRepairList.concat(data);
           }
+          ev.complete();
         }, err => {
           ev.complete();
-          this.util.showAlertMsg('获取数据失败，请重试');
+          this.util.showAlertMsg(err);
         });
         break;
 

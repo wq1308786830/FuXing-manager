@@ -10,21 +10,27 @@
 
   <ion-list>
     <ion-item>
-      <ion-label>房间:创客空间401</ion-label>
+      <span>业主：</span><span>{{maker.name}}</span>
     </ion-item>
     <ion-item>
-      房租价格：10000元/月&nbsp;&nbsp;&nbsp;&nbsp;押金：3000
+      <span>联系方式：</span><span>{{maker.mobiPhone}}</span>
     </ion-item>
     <ion-item>
-      已缴纳到：2016年12月
+      <span>账户：</span><span>{{rentinfo.housename}}</span>
     </ion-item>
     <ion-item>
-      房间标配项：
-      <p>桌子、床、凳子、空调</p>
+      <span>房租价格：</span><span>{{style.rent_unit_price}}{{style.rent_unit_name}}&nbsp;&nbsp;&nbsp;&nbsp;押金：{{rentinfo.deposit}}元</span>
     </ion-item>
     <ion-item>
-      房间选配项：
-      <p>冰箱、洗衣机、电视机</p>
+      <span>已缴纳到：</span><span>{{houseFullInfo.rentend}}</span>
+    </ion-item>
+    <ion-item>
+      <span>房间标配置项：</span>
+      <span><span *ngFor="let item1 of rentinfo.standarFurnitrues"><span *ngIf="!item1.needRent">{{item1.name}}、</span></span></span>
+    </ion-item>
+    <ion-item>
+      <span>房间选配项：</span>
+      <span><span *ngFor="let item2 of rentinfo.optionalFurnitrues"><span *ngIf="item2.needRent">{{item2.name}}({{item2.rentPrice}}{{item2.rentUnitName}})、</span></span></span>
     </ion-item>
 
   </ion-list>

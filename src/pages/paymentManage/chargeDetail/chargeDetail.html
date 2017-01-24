@@ -1,16 +1,16 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>详情</ion-title>
+    <ion-title>{{title}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <ion-item>业主：<span>李阳</span></ion-item>
-    <ion-item>电话：<span>13888888888</span></ion-item>
-    <ion-item>账户：<span>创客空间401</span></ion-item>
-    <ion-item>缴费时间：<span>2016-09-10 12:30</span></ion-item>
-    <ion-item>缴费金额：<span>100元</span></ion-item>
+    <ion-item>业主：<span>{{paymentDetail.makername}}</span></ion-item>
+    <ion-item>电话：<span>{{httpService.accountInfo}}</span></ion-item>
+    <ion-item>账户：<span>{{paymentDetail.housename}}</span></ion-item>
+    <ion-item>缴费时间：<span>{{paymentDetail.create_time}}</span></ion-item>
+    <ion-item>缴费金额：<span>{{paymentDetail.money}}元</span></ion-item>
   </ion-list>
 
   <div class="single-row" *ngIf="canCharge">

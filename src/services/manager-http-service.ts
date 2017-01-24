@@ -6,9 +6,11 @@ import {App, Platform} from "ionic-angular";
 import {Http, Response, Headers, RequestOptions} from "@angular/http";
 import {
   AccountBean, HouseBean, GarDenStyleBean, AppointBase, AcceptApppoint, HistoryAppoint,
-  RepairInfo, MailBaseBean, CleanInfo
+  RepairInfo, MailBaseBean, CleanInfo, RentBillInfo, MoneyPayInfo, HouseSimple, HouseFullInfo, UnRentRefundInfo,
+  UnRentInfo
 } from "../beans/beans";
 import {Observable} from "rxjs/Rx";
+import {LoginPage} from "../pages/login/login";
 
 
 @Injectable()
@@ -31,14 +33,14 @@ export class ManagerHttpService {
       return body.data;
     }
 
-    if (body.retCode === 10000) {
-      throw new Error("ErrorNeedLogin");
-    } else if (body.retCode === 0) {
-      throw new Error("Failed");
-    } else if (body.retCode === 10001) {
-      throw new Error("User Unauthorized");
-    } else if (body.retCode === 10002) {
-      throw new Error("Request params error");
+    if (body.status === 10000) {
+      throw new Error("请登录");
+    } else if (body.status === 0) {
+      throw new Error("失败");
+    } else if (body.status === 10001) {
+      throw new Error("用户未被授权");
+    } else if (body.status === 10002) {
+      throw new Error("请求参数错误");
     } else {
       throw new Error(body.msg || "error");
     }
@@ -46,10 +48,10 @@ export class ManagerHttpService {
 
   public handleError(error: any) {
     let errMsg = (error.message) ? error.message :
-      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+      error.status ? `${error.status} - ${error.statusText}` : '服务器错误';
 
-    if (errMsg === "ErrorNeedLogin") {
-      //this.app.getActiveNav().push(LoginPage);
+    if (errMsg === "请登录") {
+      this.app.getActiveNav().push(LoginPage);
       return null;
     } else {
       return Observable.throw(errMsg);
@@ -94,7 +96,7 @@ export class ManagerHttpService {
    * @param gardenid
    * @returns {Observable<any>}
    */
-  public gardenListStyle(gardenid?: number): Observable<GarDenStyleBean[]> {
+  public gardenListStyle(gardenid?: string): Observable<GarDenStyleBean[]> {
 
     let body = 'gardenid='+gardenid;
 
@@ -209,7 +211,7 @@ export class ManagerHttpService {
    * @returns {Observable<any>}
    * @param data
    */
-  public saveRepairDetail(data: RepairInfo): Observable<any> {
+  public saveRepairDetail(data: any): Observable<any> {
 
     let body = 'id='+data.id+'&price='+data.price+'&repairer='+
       data.repairer+'&repairerphone='+data.repairerphone+'&domsg='+data.domsg;
@@ -247,7 +249,7 @@ export class ManagerHttpService {
    * @returns {Observable<any>}
    * @param data
    */
-  public saveCleanDetail(data: CleanInfo): Observable<any> {
+  public saveCleanDetail(data: any): Observable<any> {
 
     let body = 'id='+data.id+'&price='+data.price+'&cleaner='+
       data.cleaner+'&repairerphone='+data.cleanerphone+'&domsg='+data.domsg;
@@ -291,6 +293,113 @@ export class ManagerHttpService {
     let body = 'id='+id+'&status='+status;
 
     return this.basePost("/mail/save.do", body);
+  }
+
+  /**
+   * 签约单列表
+   * @param done
+   * @param pageno
+   * @returns {Observable<any>}
+   */
+  public getRentBillList(done: boolean, pageno: number): Observable<HouseSimple[]> {
+
+    let body = 'done='+done+'&pageno='+pageno;
+
+    return this.basePost("/rent/bill.do", body);
+  }
+
+  /**
+   * 缴费列表
+   * @param feetype
+   * @param done
+   * @param pageno
+   * @returns {Observable<any>}
+   */
+  public getMoneyBillList(feetype: number, done: boolean, pageno: number): Observable<MoneyPayInfo[]> {
+
+    let body = 'feetype='+feetype+'&done='+done+'&pageno='+pageno;
+
+    return this.basePost("/money/bill.do", body);
+  }
+
+  /**
+   * 缴费单处理，如水费，电费
+   * @param billid
+   * @returns {Observable<any>}
+   */
+  public doSaveMoneyBill(billid: string): Observable<any> {
+
+    let body = 'billid='+billid+'&result=1';
+
+    return this.basePost("/money/dobill.do", body);
+  }
+
+  /**
+   * 查询用户某一项缴费历史
+   * @param houseid
+   * @param feetype
+   * @param done
+   * @param pageno
+   * @returns {Observable<any>}
+   */
+  public getPaymentHistoryList(houseid: string, feetype: number, done: boolean, pageno: number): Observable<MoneyPayInfo[]> {
+
+    let body = 'houseid='+houseid+'&feetype='+feetype+'&done='+done+'&pageno='+pageno;
+
+    return this.basePost("/money/bill.do", body);
+  }
+
+  /**
+   * 查看各房源的详情
+   * @param id
+   * @returns {Observable<any>}
+   */
+  public getHouseFullInfo(id: string): Observable<HouseFullInfo> {
+
+    let body = 'id='+id;
+
+    return this.basePost("/house/housefullinfo.do", body);
+  }
+
+  /**
+   * 与自己相关的退租任务查询
+   * @param done
+   * @param pageno
+   * @returns {Observable<any>}
+   */
+  public getUnrentList(done: boolean, pageno: number): Observable<UnRentInfo[]> {
+
+    let body = 'done='+done+'&pageno='+pageno;
+
+    return this.basePost("/money/unrentlist.do", body);
+  }
+
+  /**
+   * 管家的退租确认
+   * @returns {Observable<any>}
+   * @param data1
+   * @param data2
+   */
+  public saveUnrentDetail(data1: UnRentRefundInfo, data2: UnRentInfo): Observable<any> {
+
+    let body = 'taskid='+data2.taskid+'&netrefund='+data1.netrefund+'&propertyrefund='+
+      data1.propertyrefund+'&waterrefund='+data1.waterrefund+'&waternum='+data1.watercount+
+      '&electricrefund='+data1.electricrefund+'&electricnum='+data1.electriccount+'&damage='+data1.damage+
+      '&totalrefund='+data1.totalrefund+'&pass=true';
+
+    return this.basePost("/money/unrentconfirm.do", body);
+  }
+
+  /**
+   * 退租价格计算
+   * @param data
+   * @returns {Observable<any>}
+   */
+  public getUnrentMoney(data: any): Observable<UnRentRefundInfo> {
+
+    let body = 'taskid='+data.taskid+'&waternum='+data.numWater+'&electricnum='+data.numElectric+'&damage='+data.moneyDamage;
+
+    return this.basePost("/money/unrentmoney.do", body);
   }
 
 }

@@ -9,39 +9,38 @@
 <ion-content>
 
   <ion-slides [options]="mySlideOptions">
-    <ion-slide style="background-color: green">
-      <h2>Slide 1</h2>
+    <ion-slide style="background: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1484740305437&di=25ede6e021477dda050aa741b30deaca&imgtype=0&src=http%3A%2F%2Fimg2.everychina.com%2Fimg%2Fb9%2Fd2%2F308d8be017f712f74c44dc041d79-600x400c1-32fd%2Fwooden_combined_slide_series_jy_043a.jpg')">
     </ion-slide>
-    <ion-slide style="background-color: blue">
-      <h2>Slide 2</h2>
+
+    <ion-slide style="background: url('https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1894198852,890130762&fm=23&gp=0.jpg')">
     </ion-slide>
-    <ion-slide style="background-color: red">
-      <h2>Slide 3</h2>
+
+    <ion-slide style="background: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1484740640846&di=6b4e51390790bb7d32c9b72e63958d4e&imgtype=0&src=http%3A%2F%2Fimg1.cache.netease.com%2Fcnews%2F2013%2F9%2F2%2F20130902103913aacfc.jpg')">
     </ion-slide>
   </ion-slides>
 
   <div class="house-detail-content">
     <div>
-      <p>{{gardenDetail.name}}</p>
-      <p>租金：{{gardenDetail.rent}}{{gardenDetail.rent_unit}}</p>
+      <p>{{style.gname}}</p>
+      <p>租金：{{style.rent_unit_price}}{{style.rent_unit_name}}</p>
     </div>
     <div>
       <ion-grid>
         <ion-row>
-          <ion-col>户型：4室2厅4卫</ion-col><ion-col>面积：{{gardenDetail.area}}</ion-col>
+          <ion-col>户型：{{style.name}}</ion-col><ion-col>面积：{{style.area}}</ion-col>
         </ion-row>
         <ion-row>
-          <ion-col>装修：{{gardenDetail.decoration}}</ion-col><ion-col>楼层：12/20</ion-col>
+          <ion-col>装修：{{style.decoration}}</ion-col><ion-col>楼层：12/20</ion-col>
         </ion-row>
         <ion-row>
-          <ion-col>朝向：{{gardenDetail.towards}}</ion-col><ion-col>年代：2012年</ion-col>
+          <ion-col>朝向：{{style.towards}}</ion-col><ion-col>年代：2012年</ion-col>
         </ion-row>
       </ion-grid>
     </div>
     <div>
       <dl>
         <dt>房源描述</dt>
-        <dd>物业费：{{gardenDetail.description}}</dd>
+        <dd>{{style.description}}</dd>
         <!--<dd>能耗费：{{houseDetail.energyMonthCost}}元/月/平方</dd>-->
         <!--<dd>推荐理由：{{houseDetail.recommendReason}}</dd>-->
       </dl></div>

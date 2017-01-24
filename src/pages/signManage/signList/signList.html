@@ -7,7 +7,7 @@
 <ion-content>
 
   <div padding>
-    <ion-segment [(ngModel)]="signList">
+    <ion-segment [(ngModel)]="signList" (ionChange)="segmentChanged()">
       <ion-segment-button value="waitSign">未签约</ion-segment-button>
       <ion-segment-button value="signed">已签约</ion-segment-button>
     </ion-segment>
@@ -15,31 +15,37 @@
 
   <div [ngSwitch]="signList">
 
-    <ion-list *ngSwitchCase="'waitSign'">
-      <ion-item (click)="onClickHouseDetail()">
-        <div item-left>创客空间401</div>
-        <div item-right>未签</div>
-      </ion-item>
+    <ion-list *ngSwitchCase="'waitSign'" no-lines>
+      <div *ngIf="lists.length">
+        <ion-item *ngFor="let item1 of lists" (click)="onClickHouseDetail(item1)">
+          <div item-left>{{item1.name}}</div>
+          <div item-right>未签</div>
+        </ion-item>
+      </div>
+      <div class="nodata-tip" *ngIf="!lists.length">
+        没有数据~
+      </div>
     </ion-list>
 
     <ion-list *ngSwitchCase="'signed'">
-      <ion-grid>
-        <ion-row>
-          <ion-col>房源地址</ion-col><ion-col>到期时间</ion-col>
-        </ion-row>
+      <div *ngIf="lists.length">
+        <ion-grid>
+          <ion-row>
+            <ion-col>房源地址</ion-col><ion-col>到期时间</ion-col>
+          </ion-row>
 
-        <ion-row (click)="onClickRentDetail()">
-          <ion-col>创客空间401</ion-col><ion-col>2017-09-08</ion-col>
-        </ion-row>
-        <ion-row (click)="onClickRentDetail()">
-          <ion-col>创客空间401</ion-col><ion-col>2017-09-08</ion-col>
-        </ion-row>
-        <ion-row (click)="onClickRentDetail()">
-          <ion-col>创客空间401</ion-col><ion-col>2017-09-08</ion-col>
-        </ion-row>
-      </ion-grid>
+          <ion-row *ngFor="let item2 of lists" (click)="onClickRentDetail(item2)">
+            <ion-col>{{item2.name}}</ion-col><ion-col>{{item2.endtime}}</ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <div class="nodata-tip" *ngIf="!lists.length">
+        没有数据~
+      </div>
     </ion-list>
 
   </div>
-
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

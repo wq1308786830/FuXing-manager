@@ -1,8 +1,8 @@
 <ion-header>
   <ion-navbar>
-      <ion-title>
-        邮件代收
-      </ion-title>
+    <ion-title>
+      邮件代收
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -24,26 +24,27 @@
   <div [ngSwitch]="receiveTag">
 
     <ion-list *ngSwitchCase="'waitArrive'" no-lines>
-      <ion-item>
+      <div *ngIf="waitArriveList.length">
         <ion-grid>
           <ion-row>
             <ion-col>快递单号</ion-col>
             <ion-col>快递公司</ion-col>
             <ion-col>到达</ion-col>
           </ion-row>
-
-          <ion-row *ngFor="let waitItem of waitArriveList" (click)="mailDetail(waitItem)">
-            <ion-col>{{waitItem.mailno}}</ion-col>
-            <ion-col>{{waitItem.mailcom}}</ion-col>
+          <ion-row *ngFor="let waitItem of waitArriveList">
+            <ion-col (click)="mailDetail(waitItem)">{{waitItem.mailno}}</ion-col>
+            <ion-col (click)="mailDetail(waitItem)">{{waitItem.mailcom}}</ion-col>
             <ion-col><input type="checkbox" (change)="checkedItem(waitItem.id)"></ion-col>
           </ion-row>
-
         </ion-grid>
-      </ion-item>
+      </div>
+      <div class="nodata-tip" *ngIf="!waitArriveList.length">
+        没有数据~
+      </div>
     </ion-list>
 
     <ion-list *ngSwitchCase="'arrived'" no-lines>
-      <ion-item>
+      <div *ngIf="arrivedList.length">
         <ion-grid>
           <ion-row>
             <ion-col>快递单号</ion-col>
@@ -51,33 +52,36 @@
             <ion-col>签收</ion-col>
           </ion-row>
 
-          <ion-row *ngFor="let aItem of arrivedList" (click)="mailDetail(aItem)">
-            <ion-col>{{aItem.mailno}}</ion-col>
-            <ion-col>{{aItem.mailcom}}</ion-col>
+          <ion-row *ngFor="let aItem of arrivedList">
+            <ion-col (click)="mailDetail(aItem)">{{aItem.mailno}}</ion-col>
+            <ion-col (click)="mailDetail(aItem)">{{aItem.mailcom}}</ion-col>
             <ion-col><input type="checkbox" (change)="checkedItem(aItem.id)"></ion-col>
           </ion-row>
-
         </ion-grid>
-      </ion-item>
+      </div>
+      <div class="nodata-tip" *ngIf="!arrivedList.length">
+        没有数据~
+      </div>
     </ion-list>
 
     <ion-list *ngSwitchCase="'received'" no-lines>
-      <ion-item>
+      <div *ngIf="receivedList.length">
         <ion-grid>
           <ion-row>
             <ion-col>快递单号</ion-col>
             <ion-col>快递公司</ion-col>
             <ion-col>签收时间</ion-col>
           </ion-row>
-
           <ion-row *ngFor="let rItem of receivedList" (click)="mailDetail(rItem)">
             <ion-col>{{rItem.mailno}}</ion-col>
             <ion-col>{{rItem.mailcom}}</ion-col>
             <ion-col>{{rItem.signedtime}}</ion-col>
           </ion-row>
-
         </ion-grid>
-      </ion-item>
+      </div>
+      <div class="nodata-tip" *ngIf="!receivedList.length">
+        没有数据~
+      </div>
     </ion-list>
 
   </div>

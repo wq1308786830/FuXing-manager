@@ -1,7 +1,11 @@
 mailReceive {
 
+  ion-content {
+    background-color: #fff!important;
+  }
   ion-list {
     ion-item {
+      font-size: 1.4rem!important;
       ion-checkbox {
         position: relative!important;
         margin: 0!important;
@@ -10,26 +14,20 @@ mailReceive {
     }
   }
   ion-grid {
+    text-align: center;
+    ion-row:first-of-type {
+      background-color: #eee;
+      font-size: 1.4rem;
+      color: #2d2d2d;
+    }
+
     ion-row {
-      text-align: center;
-      font-size: 1.3rem;
-      &:first-of-type {
-        font-size: 1.5rem;
-        border-top: 0.55px #e4e4e4 solid;
-        border-bottom: 0.55px #e4e4e4 solid;
-        ion-col {
-          border-right: 0.55px #e4e4e4 solid;
-          &:last-of-type {
-            border-right: 0;
-            font-size: 1.3rem;
-          }
-        }
+      &:nth-of-type(even) {//奇数选择器
+        background-color: #ffffef;
       }
-      ion-col {
-        &:last-of-type {
-          font-size: 1.1rem;
-        }
-      }
+      color: #4d4d4d;
+      padding: 0.6rem 0;
+      border-bottom: 0.55px #e4e4e4 solid;
     }
   }
   footer {

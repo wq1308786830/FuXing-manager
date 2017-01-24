@@ -22,6 +22,10 @@ export class CardBindForm implements OnInit {
     this.formDetail = {
       cardNo: '',
       startDate: '2016-01-01T00:00:00+01:00',
+      buildingItem: {
+        buildingid: '',
+        buildingName: ''
+      },
       houseItem: {
         houseid: '',
         houseName: ''
@@ -40,7 +44,6 @@ export class CardBindForm implements OnInit {
     loader.present();
     loader.dismiss();
     this.util.showAlertMsg("提交失败，请重试");
-    // this.render.invokeElementMethod(this.ionSelect.nativeElement, 'click');
   }
 
   onClickSubmit() {

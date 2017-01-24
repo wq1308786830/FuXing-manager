@@ -9,57 +9,78 @@
   <ion-list>
     <ion-item>
       <ion-label>业主:</ion-label>
-      <ion-input value="李阳" readonly></ion-input>
+      <ion-input [(ngModel)]="unrentInfo.makerName" readonly></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>联系方式:</ion-label>
-      <ion-input value="18333333333" readonly></ion-input>
+      <ion-input [(ngModel)]="unrentInfo.makerPhone" readonly></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>申请退租时间:</ion-label>
-      <ion-input value="2016-06-09 12:30" readonly></ion-input>
+      <ion-input [(ngModel)]="unrentInfo.unrentTime" readonly></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>房租到期时间:</ion-label>
-      <ion-input value="2016-06-20" readonly></ion-input>
+      <ion-input [(ngModel)]="unrentInfo.endHouseTime" readonly></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>押金:</ion-label>
-      <ion-input value="3000元" readonly></ion-input>
+      <ion-input [(ngModel)]="unrentInfo.moneyDeposit" readonly></ion-input>
     </ion-item>
     <ion-item>
      <ion-label>宽带费余额:</ion-label>
-     <ion-input placeholder="请输入"></ion-input>
+     <ion-input [(ngModel)]="unrentInfo.moneyNetRefund" readonly></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>物业费余额:</ion-label>
-        <ion-input placeholder="请输入"></ion-input>
+        <ion-input [(ngModel)]="unrentInfo.moneyPropertyRefund" readonly></ion-input>
     </ion-item>
-    <ion-item>
+
+    <ion-item *ngIf="!readonly">
       <ion-label>当前水表读数:</ion-label>
-        <ion-input placeholder="请输入"></ion-input>
+        <ion-input [(ngModel)]="unrentInfo.numWater" placeholder="请输入" (blur)="numChanged()"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="readonly">
+      <ion-label>当前水表读数:</ion-label>
+      <ion-input [(ngModel)]="unrentInfo.numWater" readonly></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="!readonly">
       <ion-label>当前电表读数:</ion-label>
-        <ion-input placeholder="请输入"></ion-input>
+        <ion-input [(ngModel)]="unrentInfo.numElectric" placeholder="请输入" (blur)="numChanged()"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="readonly">
+      <ion-label>当前电表读数:</ion-label>
+      <ion-input [(ngModel)]="unrentInfo.numElectric" readonly></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="!readonly">
       <ion-label>损坏赔偿:</ion-label>
-        <ion-input placeholder="请输入"></ion-input>
+        <ion-input [(ngModel)]="unrentInfo.moneyDamage" placeholder="请输入" (blur)="numChanged()"></ion-input>
     </ion-item>
+    <ion-item *ngIf="readonly">
+      <ion-label>损坏赔偿:</ion-label>
+      <ion-input [(ngModel)]="unrentInfo.moneyDamage" readonly></ion-input>
+    </ion-item>
+
     <ion-item>
       <ion-label>退回业主金额:</ion-label>
-        <ion-input placeholder="请输入"></ion-input>
+        <ion-input [(ngModel)]="unrentInfo.moneyTotlaRefund" readonly></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label floating>请输入备注</ion-label>
-      <ion-textarea></ion-textarea>
+
+    <ion-item *ngIf="!readonly">
+      <ion-label stacked>备注:</ion-label>
+      <ion-textarea [(ngModel)]="unrentInfo.msg"></ion-textarea>
+    </ion-item>
+    <ion-item *ngIf="readonly">
+      <ion-label stacked>备注:</ion-label>
+      <ion-textarea [(ngModel)]="unrentInfo.msg" readonly></ion-textarea>
     </ion-item>
 
 
   </ion-list>
 
-  <div class="single-row">
+  <div *ngIf="!readonly" class="single-row">
     <button ion-button (click)="onClickSubmit()">提交</button>
   </div>
 

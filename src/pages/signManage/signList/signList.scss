@@ -2,13 +2,14 @@ signList {
   ion-item {
     color: #4d4d4d!important;
     font-size: 1.4rem!important;
+    border-bottom: 0.55px #e4e4e4 solid!important;
   }
 
   ion-grid {
     text-align: center;
     ion-row:first-of-type {
-      background-color: #eee;
-      font-size: 1.6rem;
+      background-color: #fff;
+      font-size: 1.4rem;
       color: #2d2d2d;
     }
 
@@ -16,6 +17,7 @@ signList {
       &:nth-of-type(even) {//奇数选择器
         background-color: #ffffef;
       }
+      background-color: #fff;
       color: #4d4d4d;
       padding: 0.6rem 0;
       border-bottom: 0.55px #e4e4e4 solid;

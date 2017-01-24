@@ -38,15 +38,15 @@ export class MailReceive implements OnInit {
     this.waitArriveList = [];
     this.arrivedList = [];
     this.receivedList = [];
-    this.curPage1 = 0;
-    this.curPage2 = 0;
-    this.curPage3 = 0;
+    this.curPage1 = 1;
+    this.curPage2 = 1;
+    this.curPage3 = 1;
   }
 
   ngOnInit() {
     let loader = this.loadingCtrl.create({content: "加载中..."});
     loader.present();
-    this.httpService.getMailList(0, MailReceive.WAIT_ARRIVE).subscribe(data => {
+    this.httpService.getMailList(1, MailReceive.WAIT_ARRIVE).subscribe(data => {
       loader.dismiss();
       if (data) {
         this.waitArriveList = data;
@@ -110,7 +110,7 @@ export class MailReceive implements OnInit {
       case 'waitArrive':
         loader = this.loadingCtrl.create({content: "加载中..."});
         loader.present();
-        this.httpService.getMailList(0, MailReceive.WAIT_ARRIVE).subscribe(data => {
+        this.httpService.getMailList(1, MailReceive.WAIT_ARRIVE).subscribe(data => {
           loader.dismiss();
           if (data) {
             this.waitArriveList = data;
@@ -124,10 +124,10 @@ export class MailReceive implements OnInit {
       case 'arrived':
         loader = this.loadingCtrl.create({content: "加载中..."});
         loader.present();
-        this.httpService.getMailList(0, MailReceive.ARRIVED).subscribe(data => {
+        this.httpService.getMailList(1, MailReceive.ARRIVED).subscribe(data => {
           loader.dismiss();
           if (data) {
-            this.waitArriveList = data;
+            this.arrivedList = data;
           }
         }, err => {
           loader.dismiss();
@@ -138,10 +138,10 @@ export class MailReceive implements OnInit {
       case 'received':
         loader = this.loadingCtrl.create({content: "加载中..."});
         loader.present();
-        this.httpService.getMailList(0, MailReceive.RECEIVED).subscribe(data => {
+        this.httpService.getMailList(1, MailReceive.RECEIVED).subscribe(data => {
           loader.dismiss();
           if (data) {
-            this.waitArriveList = data;
+            this.receivedList = data;
           }
         }, err => {
           loader.dismiss();
@@ -163,10 +163,10 @@ export class MailReceive implements OnInit {
     switch (this.receiveTag) {
       case 'waitArrive':
         this.httpService.getMailList(++this.curPage1, MailReceive.WAIT_ARRIVE).subscribe(data => {
-          ev.complete();
           if (data) {
-            this.waitArriveList = data;
+            this.waitArriveList = this.waitArriveList.concat(data);
           }
+          ev.complete();
         }, err => {
           ev.complete();
         });
@@ -174,21 +174,21 @@ export class MailReceive implements OnInit {
 
       case 'arrived':
         this.httpService.getMailList(++this.curPage2, MailReceive.ARRIVED).subscribe(data => {
-          ev.complete();
           if (data) {
-            this.arrivedList = data;
+            this.arrivedList = this.arrivedList.concat(data);
           }
+          ev.complete();
         }, err => {
           ev.complete();
         });
         break;
 
       case 'received':
-        this.httpService.getMailList(++this.curPage2, MailReceive.RECEIVED).subscribe(data => {
-          ev.complete();
+        this.httpService.getMailList(++this.curPage3, MailReceive.RECEIVED).subscribe(data => {
           if (data) {
-            this.arrivedList = data;
+            this.receivedList = this.receivedList.concat(data);
           }
+          ev.complete();
         }, err => {
           ev.complete();
         });
@@ -202,19 +202,13 @@ export class MailReceive implements OnInit {
   /**
    * 操作idList（需要提交的id组合成一个字符串用逗号间隔）
    * @param id
+   * @param e
    */
   checkedItem(id: number) {
-
-    if (this.idList.indexOf('' + id) == 0) {
+    if (this.idList.indexOf(id + ',') >= 0) {
       this.idList = this.idList.replace(new RegExp(id + ','), '');
-    } else if (this.idList.indexOf('' + id) > 0) {
-      this.idList = this.idList.replace(new RegExp(',' + id), '');
     } else {
-      if (this.idList.length) {
-        this.idList += ',' + id;
-      } else {
-        this.idList += '' + id;
-      }
+      this.idList += id + ',';
     }
   }
 
